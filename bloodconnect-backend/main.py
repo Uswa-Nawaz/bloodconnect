@@ -1,4 +1,11 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends, HTTPException
+from sqlalchemy.orm import Session
+from sqlalchemy import text
+
+from db import engine, get_db
+from repository import UserRepository
+from service import AuthService
+from schemas import UserSignupRequest, UserLoginRequest, UserResponse
 
 app = FastAPI()
 
@@ -22,3 +29,23 @@ def test_db():
     print("TEST ROUTE FINISHED")
 
     return {"message": "Database connected successfully"}
+
+@app.post("/signup", response_model=UserResponse)
+def signup(signup_data: UserSignupRequest, db: Session = Depends(get_db)):
+    repository = UserRepository(db)
+    service = AuthService(repository)
+    try:
+        new_user = service.signup(signup_data)
+        return new_user
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.post("/login", response_model=UserResponse)
+def login(login_data: UserLoginRequest, db: Session = Depends(get_db)):
+    repository = UserRepository(db)
+    service = AuthService(repository)
+    try:
+        user = service.login(login_data)
+        return user
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
