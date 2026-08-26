@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BloodConnect - Register</title>
+    <link rel="stylesheet" href="css/navbar.css">
+    <script src="js/navbar.js" defer></script>
+</head>
+<body>
+    <div id="navbar-placeholder"></div>
+
+    <h1>Register</h1>
+
+    <form id="register-form">
+        <div>
+            <label><input type="radio" name="role" value="Donor" checked> Donor</label>
+            <label><input type="radio" name="role" value="Requestor"> Requestor</label>
+            <label><input type="radio" name="role" value="Hospital"> Hospital</label>
+        </div>
+        <br>
+        <input type="text" name="name" placeholder="Full Name" required>
+        <br>
+        <input type="email" name="email" placeholder="Email" required>
+        <br>
+        <input type="tel" name="phone" placeholder="Phone" required>
+        <br>
+        <input type="password" name="password" placeholder="Password" required>
+        <br>
+        <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+        <br>
+        <div id="donor-fields">
+            <input type="text" name="blood_type" placeholder="Blood Type (e.g. O+)">
+            <br>
+            <input type="date" name="date_of_birth" placeholder="Date of Birth">
+            <br>
+        </div>
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>
