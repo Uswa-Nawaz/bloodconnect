@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BloodConnect - Register</title>
     <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/forms.css">
     <script src="js/navbar.js" defer></script>
     <script src="js/register.js" defer></script>
 </head>
@@ -14,29 +15,43 @@
     <h1>Register</h1>
 
     <form id="register-form">
-        <div>
-            <label><input type="radio" name="role" value="Donor" checked> Donor</label>
-            <label><input type="radio" name="role" value="Requestor"> Requestor</label>
-            <label><input type="radio" name="role" value="Hospital"> Hospital</label>
-        </div>
-        <br>
-        <input type="text" name="name" placeholder="Full Name" required>
-        <br>
-        <input type="email" name="email" placeholder="Email" required>
-        <br>
-        <input type="tel" name="phone" placeholder="Phone" required>
-        <br>
-        <input type="password" name="password" placeholder="Password" required>
-        <br>
-        <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
-        <br>
-        <div id="donor-fields">
-            <input type="text" name="blood_type" placeholder="Blood Type (e.g. O+)">
-            <br>
-            <input type="date" name="date_of_birth" placeholder="Date of Birth">
-            <br>
-        </div>
-        <button type="submit">Register</button>
+            <div class="form-card">
+        <h1>Register</h1>
+        <form id="register-form" class="form-grid">
+            <div class="full-width">
+                <label><input type="radio" name="role" value="Donor" checked> Donor</label>
+                <label><input type="radio" name="role" value="Requestor"> Requestor</label>
+                <label><input type="radio" name="role" value="Hospital"> Hospital</label>
+            </div>
+
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+
+            <input type="tel" name="phone" placeholder="Phone" required>
+            <input type="password" name="password" placeholder="Password" required>
+
+            <input type="password" name="confirmPassword" placeholder="Confirm Password" required class="full-width">
+
+            <div id="donor-fields" class="full-width">
+                <label for="dob">Date of Birth</label>
+                <select name="blood_type">
+                    <option value="">Select Blood Type</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                </select>
+                <input type="date" name="date_of_birth" id="dob">
+            </div>
+
+            <button type="submit" class="full-width">Register</button>
+        </form>
+        <p id="register-message"></p>
+    </div>
     </form>
     <p id="register-message"></p>
 </body>
