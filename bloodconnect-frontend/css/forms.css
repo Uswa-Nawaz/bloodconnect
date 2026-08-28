@@ -15,6 +15,13 @@ body {
 
 .form-card h1 {
     text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.form-card p {
+    text-align: center;
+    font-size: 14px;
 }
 
 .form-grid {
@@ -36,6 +43,14 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
+    font-size: 14px;
+    color: #333;
+}
+
+.form-grid input:focus,
+.form-grid select:focus {
+    outline: none;
+    border-color: #b91c1c;
 }
 
 .full-width {
@@ -52,4 +67,60 @@ body {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+}
+
+.role-tabs {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.role-tabs .tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #f4f4f4;
+}
+
+.role-tabs input {
+    display: none;
+}
+
+.role-tabs input:checked + span {
+    font-weight: bold;
+}
+
+.role-tabs .tab:has(input:checked) {
+    background-color: #b91c1c;
+    color: white;
+}
+
+.field-group {
+    margin-top: 15px; /* Adds space above the label */
+}
+
+.field-group label {
+    display: block;
+    margin-bottom: 5px; /* Adds space between label text and input */
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 12px;
+    color: #b91c1c;
+    cursor: pointer;
+}
+
+.switch-link a {
+    color: #b91c1c;
+    font-weight: bold;
+    text-decoration: none;
 }

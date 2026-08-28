@@ -4,55 +4,99 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BloodConnect - Register</title>
+
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/forms.css">
+
     <script src="js/navbar.js" defer></script>
     <script src="js/register.js" defer></script>
 </head>
+
 <body>
+
     <div id="navbar-placeholder"></div>
 
-    <h1>Register</h1>
+    <div class="form-card">
+        <h1>Register As</h1>
 
-    <form id="register-form">
-            <div class="form-card">
-        <h1>Register</h1>
         <form id="register-form" class="form-grid">
-            <div class="full-width">
-                <label><input type="radio" name="role" value="Donor" checked> Donor</label>
-                <label><input type="radio" name="role" value="Requestor"> Requestor</label>
-                <label><input type="radio" name="role" value="Hospital"> Hospital</label>
-            </div>
 
+            <div class="role-tabs full-width">
+                <label class="tab">
+                    <input type="radio" name="role" value="Donor" checked>
+                    <span>Donor</span>
+                </label>
+                <label class="tab">
+                    <input type="radio" name="role" value="Requestor">
+                    <span>Requestor</span>
+                </label>
+                <label class="tab">
+                    <input type="radio" name="role" value="Hospital">
+                    <span>Hospital</span>
+                </label>
+            </div>
             <input type="text" name="name" placeholder="Full Name" required>
+
             <input type="email" name="email" placeholder="Email" required>
 
             <input type="tel" name="phone" placeholder="Phone" required>
-            <input type="password" name="password" placeholder="Password" required>
 
-            <input type="password" name="confirmPassword" placeholder="Confirm Password" required class="full-width">
+            <div class="password-wrapper full-width">
+                <input type="password" name="password" placeholder="Password" required id="password-field">
+                <span class="toggle-password" onclick="togglePassword('password-field', this)">Show</span>
+            </div>
+
+            <div class="password-wrapper full-width">
+
+                <input
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="Confirm Password"
+                    required
+                    id="confirm-password-field"
+                >
+
+                <span
+                    class="toggle-password"
+                    onclick="togglePassword('confirm-password-field', this)"
+                >
+                    Show
+                </span>
+
+            </div>
 
             <div id="donor-fields" class="full-width">
+
+            <select name="blood_type">
+                <option value="">Select Blood Type</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+            </select>
+        
+            <div class="field-group">
                 <label for="dob">Date of Birth</label>
-                <select name="blood_type">
-                    <option value="">Select Blood Type</option>
-                    <option value="A+">A+</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B-">B-</option>
-                    <option value="AB+">AB+</option>
-                    <option value="AB-">AB-</option>
-                    <option value="O+">O+</option>
-                    <option value="O-">O-</option>
-                </select>
                 <input type="date" name="date_of_birth" id="dob">
             </div>
 
-            <button type="submit" class="full-width">Register</button>
+        </div>
+
+            <button type="submit" class="full-width">
+                Register
+            </button>
+
         </form>
+
         <p id="register-message"></p>
+
+        <p class="switch-link">Already have an account? <a href="login.html">Login here</a></p>
+
     </div>
-    </form>
-    <p id="register-message"></p>
+
 </body>
 </html>

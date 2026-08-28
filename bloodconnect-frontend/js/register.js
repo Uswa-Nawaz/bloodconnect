@@ -65,3 +65,14 @@ roleRadios.forEach(radio => {
 });
 
 updateFormFields();
+
+function togglePassword(fieldId, toggleElement) {
+    const field = document.getElementById(fieldId);
+    if (field.type === "password") {
+        field.type = "text";
+        toggleElement.textContent = "Hide";
+    } else {
+        field.type = "password";
+        toggleElement.textContent = "Show";
+    }
+}
