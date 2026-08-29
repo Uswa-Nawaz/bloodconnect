@@ -23,6 +23,8 @@ form.addEventListener("submit", function (event) {
             if (status === 200) {
                 message.textContent = "Login successful! Welcome, " + body.name + ".";
                 message.style.color = "green";
+
+                localStorage.setItem("loggedInUser", JSON.stringify({id: body.id, role: body.role}))
             } else {
                 message.textContent = body.detail;
                 message.style.color = "red";
