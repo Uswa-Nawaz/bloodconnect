@@ -34,3 +34,11 @@ class AuthService:
             raise ValueError("Invalid email or password")
 
         return user
+
+    def verify_admin(self, admin_id: int):
+        user = self.repository.get_by_id(admin_id)
+        if not user:
+            raise ValueError("Invalid user")
+        if not user.role=="Admin":
+            raise ValueError("User is not Admin")
+        return user
