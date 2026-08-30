@@ -6,6 +6,7 @@ from db import engine, get_db
 from repository import UserRepository
 from service import AuthService
 from schemas import UserSignupRequest, UserLoginRequest, UserResponse
+from typing import List
 
 app = FastAPI()
 
@@ -58,3 +59,13 @@ def login(login_data: UserLoginRequest, db: Session = Depends(get_db)):
         return user
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+@app.get("/admin/pending-users",  response_model=List[UserResponse])
+def get_pending_users(admin_id: int, db: Session = Depends(get_db)):
+        repository = UserRepository(db)
+        service = AuthService(repository)
+        try:
+            service.verify_admin(admin_id)
+            return repository.get_pending_users()
+        except ValueError as e:
+            raise HTTPException(status_code=400, detail=str(e))
