@@ -69,3 +69,23 @@ def get_pending_users(admin_id: int, db: Session = Depends(get_db)):
             return repository.get_pending_users()
         except ValueError as e:
             raise HTTPException(status_code=400, detail=str(e))
+
+@app.post("/admin/approve/{id}", response_model=UserResponse)
+def approve_users(admin_id: int, id: int,  db: Session = Depends(get_db)):
+    repository = UserRepository(db)
+    service = AuthService(repository)
+    try:
+        approved_users=service.approve_user(admin_id, id)
+        return approved_users
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.post("/admin/reject/{id}", response_model=UserResponse)
+def reject_users(admin_id: int, id: int,  db: Session = Depends(get_db)):
+    repository = UserRepository(db)
+    service = AuthService(repository)
+    try:
+        rejected_users=service.reject_user(admin_id, id)
+        return rejected_users
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))

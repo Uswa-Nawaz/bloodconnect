@@ -42,3 +42,14 @@ class AuthService:
         if not user.role=="Admin":
             raise ValueError("User is not Admin")
         return user
+
+    def approve_user(self, admin_id: int, user_id: int):
+        self.verify_admin(admin_id)
+        approved_user=self.repository.update_status(user_id, "approved")
+        return approved_user
+
+    def reject_user(self, admin_id: int, user_id: int):
+        self.verify_admin(admin_id)
+        rejected_user=self.repository.update_status(user_id, "rejected")
+        return rejected_user
+

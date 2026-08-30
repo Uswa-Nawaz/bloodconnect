@@ -20,3 +20,11 @@ class UserRepository:
 
     def get_by_id(self, user_id: int):
         return self.db.query(User).filter(User.id == user_id).first()
+
+    def update_status(self, user_id: int, new_status: str):
+        user = self.get_by_id(user_id)
+        user.status = new_status
+        self.db.commit()
+        self.db.refresh(user)
+        return user
+
