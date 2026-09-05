@@ -4,9 +4,9 @@ from sqlalchemy import text
 
 
 from db import engine, get_db
-from repository import UserRepository
-from service import AuthService
-from schemas import UserSignupRequest, UserLoginRequest, UserResponse
+from repository import UserRepository,RequestRepository
+from service import AuthService,RequestService
+from schemas import UserSignupRequest, UserLoginRequest, UserResponse,RequestCreate, RequestResponse
 from typing import List
 
 app = FastAPI()
@@ -100,3 +100,34 @@ def suspend_users(admin_id: int, id: int, db: Session = Depends(get_db)):
         return suspended_user
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+
+#----------Request routes--------
+@app.post("/requests", response_model=RequestResponse)
+def submit_request(user_id: int, request_data: RequestCreate, db: Session = Depends(get_db)):
+    user_repository = UserRepository(db)
+    request_repository = RequestRepository(db)
+    service = RequestService(request_repository, user_repository)
+    try:
+        new_request = service.submit_request(user_id, request_data)
+        return new_request
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.post("/requests/{id}/cancel", response_model=RequestResponse)
+def cancel_request(user_id: int, id: int, db: Session = Depends(get_db)):
+    user_repository = UserRepository(db)
+    request_repository = RequestRepository(db)
+    service = RequestService(request_repository, user_repository)
+    try:
+        cancelled = service.cancel_request(user_id, id)
+        return cancelled
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.get("/requests/my", response_model=List[RequestResponse])
+def get_my_requests(user_id: int, db: Session = Depends(get_db)):
+    user_repository = UserRepository(db)
+    request_repository = RequestRepository(db)
+    service = RequestService(request_repository, user_repository)
+    return service.get_my_requests(user_id)
