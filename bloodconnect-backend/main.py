@@ -2,6 +2,7 @@ from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 
+
 from db import engine, get_db
 from repository import UserRepository
 from service import AuthService
@@ -61,7 +62,7 @@ def login(login_data: UserLoginRequest, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail=str(e))
 
 @app.get("/admin/pending-users",  response_model=List[UserResponse])
-def get_pending_users(admin_id: int, db: Session = Depends(get_db)):
+def get_pending_users(admin_id: int, db: Session = Depends(get_db)): 
         repository = UserRepository(db)
         service = AuthService(repository)
         try:
@@ -87,5 +88,15 @@ def reject_users(admin_id: int, id: int,  db: Session = Depends(get_db)):
     try:
         rejected_users=service.reject_user(admin_id, id)
         return rejected_users
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.post("/admin/suspend/{id}", response_model=UserResponse)
+def suspend_users(admin_id: int, id: int, db: Session = Depends(get_db)):
+    repository = UserRepository(db)
+    service = AuthService(repository)
+    try:
+        suspended_user = service.suspend_user(admin_id, id)
+        return suspended_user
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))

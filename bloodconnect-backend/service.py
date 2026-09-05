@@ -52,4 +52,8 @@ class AuthService:
         self.verify_admin(admin_id)
         rejected_user=self.repository.update_status(user_id, "rejected")
         return rejected_user
+    def suspend_user(self, admin_id: int, user_id: int):
+        self.verify_admin(admin_id)
+        suspended_user = self.repository.update_status(user_id, "suspended")
+        return suspended_user
 

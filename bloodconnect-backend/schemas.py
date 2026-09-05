@@ -28,3 +28,20 @@ class UserResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+class RequestCreate(BaseModel):
+    patient_name: str
+    blood_type: str
+    request_type: str = "patient-specific"
+
+class RequestResponse(BaseModel):
+    id: int
+    requestor_id: int
+    patient_name: str
+    blood_type: str
+    request_type: str
+    status: str
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
